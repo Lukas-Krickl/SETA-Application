@@ -1,0 +1,115 @@
+<div *ngIf="controller.phase == TrainingsPhase.Beendet" class="section-darker introduction-left">
+    <h2 class="title">Wie läuft ein Training Ab?</h2>
+    <div class="info">
+        <h3>Trainings bestehen aus vier Phasen:</h3>
+        <ol>
+            <li>Vortrainings-Assessment</li>
+            <li>Lernen der Inhalte</li>
+            <li>Nachtrainings-Assessment</li>
+            <li>Empfehlung</li>
+        </ol>
+        <h3>Assessments:</h3>
+        <p>
+            Sie müssen eine Reihe von zufällig ausgewählten Aufgaben lösen. Aufgaben sind Multiple-Choice oder
+            Zuordnungs-Aufgaben.
+            Nachdem Sie alle Aufgaben eines Assessments beantwortet haben, werden diese aufgelöst und Sie können sich
+            Ihre und die
+            korrekten Antworten ansehen. Danach geht es zur nächsten Phase.
+            <br><br>
+            In Multiple Choice Aufgaben wird Ihnen eine Frage mit zugehörigen Antworten angezeigt. Sie müssen die
+            korrekten
+            Antworten auswählen, wobei eine, mehrere oder alle Antworten richtig sein können.
+            <br><br>
+            In Zuordnungs-Aufgaben werden Ihnen mehrere Texte angezeigt. Neben jedem Text befindet sich ein Menü, in dem
+            Sie einen
+            Begriff auswählen können. Sie müssen den angezeigten Texten ihre zugehörigen Begriffe zuordnen. Ein Begriff
+            kann auch
+            mehrmals verwendet und daher mehreren Texten zugeordnet werden.
+        </p>
+        <h3>Lernen der Inhalte</h3>
+        <p>Beim lernen der Inhalte werden Ihnen IT-Sicherheitsrelevante Informationen, die auch unter “Inhalte”
+            verfügbar sind,
+            angezeigt. Sie können sich diese Inhalte ansehen und Übungsaufgaben machen. Übungsaufgaben sind Aufgaben wie
+            in den
+            Assessments, die aber nach beantwortung sofort korrekt aufgelöst werden.</p>
+    </div>
+</div>
+<div *ngIf="controller.phase == TrainingsPhase.Beendet" class="section-lighter introduction-right">
+    <h2 class="title">Starten Sie ein Training:</h2>
+    <div class="kapitel">
+        <label for="kapitel">Kapitel auswählen:</label>
+        <select name="kapitel" id="kapitel" #kapitelnummer>
+            <option value="1">1. Computer und Information</option>
+            <option value="2">2. Passwortsicherheit</option>
+            <option value="3">3. Sicher im Internet</option>
+            <option value="4">4. E-Mails und Spam</option>
+            <option value="5">5. Vieren und Malware</option>
+        </select>
+    </div>
+    <button class="secondary-btn" (click)="controller.startTraining(kapitelnummer.value)">Training Starten</button>
+</div>
+<div *ngIf="controller.phase != TrainingsPhase.Beendet" class="section-darker phase-guide">
+    <h2 class="title-sm">Trainingsphasen:</h2>
+    <div class="phasen-box">
+        <div class="phasen-item"
+            [ngClass]="{'active': controller.phase == TrainingsPhase.Vortraining || controller.phase == TrainingsPhase.VortrainingFeedback}">
+            <span>Vortrainings-Assessment</span>
+        </div>
+        <div class="phasen-item"
+            [ngClass]="{'active': controller.phase == TrainingsPhase.Inhalte || controller.phase == TrainingsPhase.Ueben}">
+            <span>Training</span>
+        </div>
+        <div class="phasen-item"
+            [ngClass]="{'active': controller.phase == TrainingsPhase.Nachtraining || controller.phase == TrainingsPhase.NachtrainingFeedback}">
+            <span>Nachtrainings-Assessment</span>
+        </div>
+        <div class="phasen-item" [ngClass]="{'active': controller.phase == TrainingsPhase.Empfehlung}">
+            <span>Empfehlung</span>
+        </div>
+    </div>
+
+</div>
+<div *ngIf="controller.phase == TrainingsPhase.Empfehlung && !controller.showAssessmentScreen" class="section-lighter content-container">
+    <app-training-result 
+        *ngIf="controller.trainingResult !== undefined" 
+        [training]="controller.trainingResult"
+        [btnDisabled]="false"
+        (szenarioNavClicked)="controller.empfehlungSzenarioNavClicked($event)" 
+        class="content-box">
+    </app-training-result>
+    <div *ngIf="controller.trainingResult !== undefined" class="content-nav">
+        <button class="secondary-btn" (click)="controller.beenden()">Fertig</button>
+    </div>
+</div>
+<div class="section-lighter content-container inhalte-box " [ngClass]="{'hidden': controller.phase != TrainingsPhase.Inhalte}">
+    <div class="content-box">
+        <app-kapitel1 *ngIf="controller.kapitelnummer === 1" ></app-kapitel1>
+        <app-kapitel2 *ngIf="controller.kapitelnummer === 2" ></app-kapitel2>
+        <app-kapitel3 *ngIf="controller.kapitelnummer === 3"></app-kapitel3>
+        <app-kapitel4 *ngIf="controller.kapitelnummer === 4"></app-kapitel4>
+        <app-kapitel5 *ngIf="controller.kapitelnummer === 5"></app-kapitel5>
+    </div>
+    <div class="content-nav">
+        <button class="primary-dark-btn" (click)="controller.initAssessment(TrainingsPhase.Nachtraining)">zur nächsten Trainingsphase</button>
+        <button class="primary-btn" (click)="controller.initUebung()">Zu den Übungsaufgaben</button>
+    </div>
+</div>
+<div *ngIf="controller.showAssessmentScreen" class="section-lighter content-container">
+    <app-assessment [title]="controller.phase" 
+        [confirmBtnText]="controller.assessmentConfirmBtnText"
+        [exitBtnText]="controller.assessmentExitBtnText" 
+        [szenario]="controller.currentSzenario"
+        [mcAntwortSelected]="controller.mcAntwortSelected" 
+        [zuordnungsAuswahl]="controller.zuordnungsAuswahl"
+        [currentSzenarioIndex]="controller.training.aktuellesSzenario"
+        [szenarioFortschritt]="controller.szenarioFortschritt" 
+        [szenarioResults]="controller.szenarioResults"
+        [feedBackMode]="controller.feedBackMode"
+        
+        (confirmBtn)="controller.confirmBtnClicked($event)"
+        (exitBtn)="controller.exitBtnClicked($event)" 
+        (szenarioNav)="controller.szenarioNavClicked($event)">
+
+    </app-assessment>
+</div>
+

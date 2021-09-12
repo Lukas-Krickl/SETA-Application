@@ -1,0 +1,32 @@
+<h2 class="title">Trainingsergebnis: </h2>
+<h5 class="title-sm"><b>Kapitel: </b>{{training.kapitelnummer}}. {{training.kapitelname}}</h5>
+<h3>Ergebnisse im Vergleich:</h3>
+<div>
+    <div class="item-box">
+        <div class="assessment-header">
+            <h4>Vortrainings-Assessment:</h4>
+            <h4>{{training.vortraining.prozent}}% ({{training.vortraining.korrekt}}/{{training.vortraining.total}})</h4>
+        </div>
+        <nav>
+            <button *ngFor="let szenario of training.vortraining.antworten; let i = index"
+                [ngClass]="{'correct-pill': szenario.korrekt, 'incorrect-pill': !szenario.korrekt, 'disabled': btnDisabled}"
+                (click)="navigateToSzenario(szenario.szenarioID)">{{i+1}}</button>
+        </nav>
+    </div>
+    <div class="item-box">
+        <div class="assessment-header">
+            <h4>Nachtrainings-Assessment:</h4>
+            <h4>{{training.nachtraining.prozent}}% ({{training.nachtraining.korrekt}}/{{training.nachtraining.total}})</h4>
+        </div>
+        <nav>
+            <button *ngFor="let szenario of training.nachtraining.antworten; let i = index"
+                [ngClass]="{'correct-pill': szenario.korrekt, 'incorrect-pill': !szenario.korrekt, 'disabled': btnDisabled}"
+                (click)="navigateToSzenario(szenario.szenarioID)">{{i+1}}</button>
+        </nav>
+    </div>
+</div>
+
+<h3>Empfehlung:</h3>
+<p style="white-space: pre-line">
+    {{getEmpfehlungsText()}}
+</p>

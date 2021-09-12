@@ -1,0 +1,25 @@
+<h2 class="title">Prüfungsergebnis: </h2>
+
+<div class="scroll-box">
+    <div class="content-box">
+        <div class="item-box gesammt-box">
+            <h3>Gesammt: </h3>
+            <h3>{{getPercent(amountGesammtKorrekt, pruefung.szenarien.length)}}% ({{amountGesammtKorrekt}}/{{pruefung.szenarien.length}})</h3>
+        </div>
+        <div *ngFor="let kapitel of kapitelErfolg; let i = index" class="item-box">
+            <ng-container *ngIf="kapitel.gesammt !==0" >
+                <div class="kapitel-header">
+                    <h3>Kapitel {{i+1}}</h3>
+                    <h3>{{getPercent(kapitel.korrekt, kapitel.gesammt)}}% ({{kapitel.korrekt}}/{{kapitel.gesammt}})</h3>
+                </div>
+                <nav>
+                    <button *ngFor="let szenario of szenarioKapitelZuweisung[i]" 
+                        [ngClass]="{'correct-pill': szenario.korrekt, 'incorrect-pill': !szenario.korrekt, 'disabled': btnDisabled}"
+                        (click)="onClickSzenarioNav(szenario.szenarioID)"
+                    >{{szenario.anzeigeNummer}}</button>
+                </nav>
+            </ng-container>
+        </div>
+    </div>
+
+</div>

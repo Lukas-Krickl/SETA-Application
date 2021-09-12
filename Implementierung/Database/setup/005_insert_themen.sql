@@ -1,0 +1,22 @@
+USE seta;
+INSERT Thema (kapitelnummer, themanummer, titel) VALUES 
+(1, 1, 'Sicherer Umgang mit personenbezogenen Daten'), 
+(1, 2, 'Clear Desk Policy'), 
+(1, 3, 'Datenträger und Papierdokumente richtig entsorgen'), 
+(1, 4, 'Sicherer Umgang mit mobilen IT-Geräten'), 
+(1, 5, 'Wechselmedien richtig verwenden'),
+(1, 6, 'Social Engineering'),
+(2, 1, 'Die richtige Auswahl'), 
+(2, 2, 'Der richtige Umgang'), 
+(2, 3, 'Passwort-Manager verwenden'), 
+(3, 1, 'Vorsichtsmaßnahmen'), 
+(3, 2, 'Verschlüsselte Datenübertragung'), 
+(3, 3, 'Tracking Cookies'), 
+(4, 1, 'Umgang mit unerwünschten Mails'), 
+(4, 2, 'Phishing-Mails'), 
+(4, 3, 'Gefälschte Absenderadressen'), 
+(4, 4, 'Sparsamer Einsatz der eigenen Mail-Adresse im Internet'), 
+(5, 1, 'Wie können Sie erkennen, dass Ihr PC infiziert ist?'), 
+(5, 2, 'Ransomware und Verschlüsselungstrojaner'), 
+(5, 3, 'Maßnahmen richtig setzen'), 
+(5, 4, 'Vireninfektion: Was tun?');

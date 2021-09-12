@@ -1,0 +1,104 @@
+@import ../../../../variables
+:host
+    height: 100%
+    width: 100%
+    display: flex
+    align-items: stretch
+
+h2
+    text-align: center
+
+.header
+    height: 20%
+
+.section-darker
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    width: 35%
+    padding: 2rem 0
+
+.typ-auswahl
+    margin-top: 10%
+    display: flex
+    justify-content: center
+    align-items: center
+    margin-bottom: 10%
+
+    .active
+        background: $primary-dark
+        color: white
+
+    button
+        padding: .6rem 1rem
+        text-decoration: none
+
+    button:hover
+        cursor: pointer
+        filter: brightness(90%)
+
+#training-btn
+    border-radius: 8px 0 0 8px
+
+#prüfung-btn
+    border-radius: 0 8px 8px 0
+
+.scroll-container
+    overflow-y: auto
+    height: 80%
+
+nav
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+
+    .item
+        display: flex
+        flex-direction: column
+        padding: 1rem 1.5rem
+        border-top: 1px solid $grey
+        font-weight: 300
+
+
+    .item:hover
+        background: rgba(255, 255, 255,.6)
+        cursor: pointer
+
+    .item-title
+        display: flex
+        justify-content: space-between
+
+    .active
+        background: white
+
+    .disabled:hover
+        cursor: default
+        background: none
+
+
+.trainings
+    .details
+        display: flex
+        justify-content: space-between
+
+    .assessment-title
+        justify-self: end
+
+.prüfung
+    .item
+        display: flex
+        flex-direction: column
+
+    .details
+        display: flex
+        justify-content: flex-end
+
+.section-lighter
+    width: 65%
+    padding: 2rem 0
+    background: white
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center

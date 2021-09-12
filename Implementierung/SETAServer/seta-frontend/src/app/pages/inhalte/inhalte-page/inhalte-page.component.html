@@ -1,0 +1,16 @@
+<div class="section-darker">
+    <h2 class="title">Kapitel</h2>
+    <nav>
+        <a routerLink="kapitel/1" routerLinkActive="active">1. <span>Computer und Information</span></a>
+        <a routerLink="kapitel/2" routerLinkActive="active">2. <span>Passwortsicherheit</span></a>
+        <a routerLink="kapitel/3" routerLinkActive="active">3. <span>Sicher im Internet</span></a>
+        <a routerLink="kapitel/4" routerLinkActive="active">4.  <span>E-Mails und Spam</span></a>
+        <a routerLink="kapitel/5" routerLinkActive="active">5. <span>Vieren und Malware</span></a>
+    </nav>
+</div>
+<div class="section-lighter">
+    <div class="scroll-box" #scrollbox>
+        <router-outlet (activate)="scrollToTop(scrollbox)"></router-outlet>
+    </div>
+</div>
+

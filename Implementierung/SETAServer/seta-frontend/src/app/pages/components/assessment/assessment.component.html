@@ -1,0 +1,53 @@
+<h3 class="title-sm">{{title}}</h3>
+<h2 *ngIf="typeCheck.isSzenarioMCFrage(szenario)">{{szenario.frage}}</h2>
+<h2 *ngIf="typeCheck.isSzenarioZuordnung(szenario)">{{szenario.anweisung}}</h2>
+<div *ngIf="typeCheck.isSzenarioMCFrage(szenario) && szenario.bild_url != ''" class="img-container">
+    <a target="_blank" [href]="appDao.serverBaseUrl+szenario.bild_url">
+        <img  [src]="appDao.serverBaseUrl+szenario.bild_url" alt="">
+    </a>
+</div>
+
+<div class="content">
+    <div *ngIf="typeCheck.isSzenarioMCFrage(szenario)" class="mcfrage">
+        <div *ngFor="let antwort of szenario.antworten"
+            (click)="toggleMcAntwort(antwort.antwortID)" 
+            [ngClass]="{'selected': isAusgewaehlt(antwort.antwortID), 'correct': feedBackMode && isCorrectlyAnswered(antwort), 'incorrect': feedBackMode && isIncorrectlyAnswered(antwort)}">
+            {{antwort.text}}
+        </div>
+    </div>
+    
+    <div *ngIf="typeCheck.isSzenarioZuordnung(szenario)" class="zuordnung">
+        <ng-container *ngFor="let eintrag of szenario.eintraege">
+            <p>{{eintrag.beschreibung}}</p>
+            <select 
+                [ngClass]="{'correct-pill': feedBackMode && isZuweisungsAntwortCorrect(eintrag), 'incorrect-pill': feedBackMode && !isZuweisungsAntwortCorrect(eintrag)}" 
+                [value]="getSelectedEintrag(eintrag)" 
+                (change)="selectedEintrag(eintrag, select.value)" #select>
+                
+                <option value="" [disabled]="feedBackMode"> </option>
+                <option *ngFor="let optionEintrag of sortZuordnungsbegriffe(szenario.eintraege)" 
+                    [value]="optionEintrag.begriff"
+                    [selected]="optionEintrag.begriff == getSelectedEintrag(eintrag)"
+                    [disabled]="feedBackMode && !(optionEintrag.begriff == getSelectedEintrag(eintrag))"
+                    [ngClass]="{'correct-pill': feedBackMode && eintrag.begriff == optionEintrag.begriff}">{{optionEintrag.begriff}}</option>
+            </select>
+        </ng-container>
+    </div>
+</div>
+<div class="buttons">
+    <button *ngIf="exitBtnText != ''" class="confirm-btn primary-btn" [ngClass]="{'red-btn': !feedBackMode && exitBtnText != 'zu den Inhalten'}" (click)="exitBtnClicked()">{{exitBtnText}}</button>
+    <button *ngIf="confirmBtnText != ''" class="confirm-btn primary-dark-btn" (click)="confirmButtonClicked()">{{confirmBtnText}}</button>
+</div>
+
+
+<nav *ngIf="szenarioFortschritt !== undefined && szenarioResults === undefined">
+    <button *ngFor="let item of szenarioFortschritt; let i = index" 
+        [ngClass]="{'answered': item === true, 'current': currentSzenarioIndex === i}" 
+        (click)="szenarioNavClicked(i)">{{i+1}}</button>
+</nav>
+
+<nav *ngIf="szenarioResults !== undefined && szenarioFortschritt === undefined">
+    <button *ngFor="let item of szenarioResults; let i = index"
+        [ngClass]="{'correct-pill': item, 'incorrect-pill': !item,  'current': currentSzenarioIndex === i}"
+        (click)="szenarioNavClicked(i)">{{i+1}}</button>
+</nav>

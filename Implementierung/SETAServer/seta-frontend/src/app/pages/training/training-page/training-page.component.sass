@@ -1,0 +1,172 @@
+@import ../../../../variables
+:host
+    height: 100%
+    width: 100%
+    display: flex
+    align-items: stretch
+
+h2
+    text-align: center
+    margin: 0
+    margin-bottom: 4%
+
+.introduction-left
+    width: 50%
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    padding-top: 8%
+    padding-bottom: 2%
+
+ol
+    font-weight: 300
+    margin: 0
+    margin-top: 1rem
+
+h3
+    font-weight: 300
+    margin: 2rem 0 .2rem 0
+    padding: 0
+
+p
+    font-weight: 300
+    margin: 0
+
+.info
+    overflow: auto
+    padding-left: 4%
+    padding-right: 4%
+
+.introduction-right
+    width: 50%
+    padding-top: 8%
+    padding-bottom: 10%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+
+    .kapitel
+        display: flex
+        flex-direction: column
+        justify-content: center
+        align-items: center
+
+    label
+        font-size: 1.5rem
+        font-weight: 300
+        margin-bottom: 1rem
+
+    select
+        border: none
+        border-radius: 8px
+        font-size: 1rem
+        font-weight: 300
+        background: $primary-light
+        padding: .6rem 1.2rem
+
+    option
+        background: white
+        font-family: $font-stack
+        font-weight: 300
+
+    select:hover
+        background: $primary-light
+
+.content-container
+    width: 80%
+    height: 100%
+
+.content-box
+    height: 90%
+
+.content-nav
+    height: 10%
+    display: flex
+    justify-content: space-around
+    align-items: center
+
+.inhalte-box
+    padding-top: 1rem
+
+    .content-box
+        padding: 1rem 2rem
+        overflow: auto
+
+.content-container-splitscreen
+    width: 40% !important
+
+.phase-guide
+    width: 20%
+    height: 100%
+    display: flex
+    flex-direction: column
+    padding: 4% 0
+
+    h2
+        word-wrap: break-word
+
+    .phasen-box
+        flex-grow: 2
+        display: flex
+        flex-direction: column
+        justify-content: center
+
+    .phasen-item
+        width: 100%
+        padding: 1rem 8%
+        margin: 8% 0
+
+    .active
+        background: rgba(255, 255, 255, .68)
+        color: $primary-dark
+
+@media only screen and (max-width: 850px)
+
+@media only screen and (max-width: 600px)
+    :host
+        flex-direction: column
+        overflow: auto
+
+    .introduction-left, .introduction-right
+        width: 100%
+
+    .info
+        overflow: visible
+
+    .introduction-right
+        padding: 2rem 1rem
+
+        .kapitel
+            margin: 2rem 0
+
+        label
+            font-size: 1.2rem
+
+    .phase-guide
+        display: none
+
+    .content-container
+        width: 100%
+
+    .content-box
+        height: 100%
+        padding-bottom: 4rem !important
+
+    .content-nav
+        position: absolute
+        z-index: 3
+        bottom: 8%
+        height: 8%
+        width: 100%
+        button
+            width: 45%
+            height: 80%
+            font-size: .95rem
+            padding: .2rem .5rem 
+
+    .inhalte-box
+        padding-top: 0
+
+        .content-box
+            padding: 1rem

@@ -1,0 +1,65 @@
+@import ../../../../variables
+:host
+    width: 100%
+    height: 100%
+    display: flex
+    flex-direction: column
+    padding: 0 2%
+
+
+.content-box
+    border-right: 0px solid rgb(200, 200, 200)
+    display: flex
+    flex-direction: column
+    justify-content: space-around
+    overflow: auto
+
+.scroll-box
+    overflow: auto
+    
+.item-box
+    padding: .5rem 0
+    margin-top: 1rem
+
+.gesammt-box
+    display: flex
+    justify-content: space-between
+    border-bottom: 1px solid $grey
+
+.kapitel-header
+    display: flex
+    justify-content: space-between
+    h3
+        font-weight: 300
+
+nav
+    display: flex
+    justify-content: center
+    flex-wrap: nowrap
+
+    button
+        flex-grow: 1
+        background: $grey-light
+        margin: .1rem
+        padding: .2rem .8rem
+
+    button:hover
+        filter: brightness(80%)
+        cursor: pointer
+
+    button:last-child
+        border-radius: 0 8px 8px 0
+
+    button:first-child
+        border-radius: 8px 0 0 8px
+
+    .disabled:hover
+        filter: none
+        cursor: default
+
+    .answered
+        background: $primary-light
+
+    .current
+        background: $primary-dark !important
+        color: white !important

@@ -1,0 +1,58 @@
+<div class="section-darker">
+    <div class="header">
+        <h2 class="title">Fortschritt:</h2>
+        <div class="typ-auswahl">
+            <button (click)="trainingsAnsicht=true" [ngClass]="{'active': trainingsAnsicht}"
+                id="training-btn">Trainings</button>
+            <button (click)="trainingsAnsicht=false" [ngClass]="{'active': !trainingsAnsicht}"
+                id="prüfung-btn">Prüfungen</button>
+        </div>
+    </div>
+    <div class="scroll-container">
+        <nav *ngIf="trainingsAnsicht" class="trainings">
+            <div *ngFor="let training of trainingsStatistics" class="item active"
+                [ngClass]="{'disabled': !training.vortraining.abgeschlossen, 'active': activeTraining !== undefined && activeTraining.assessmentID === training.vortraining.assessmentID}"
+                (click)="loadTrainingResult(training)">
+                <div class="item-title">
+                    <h4>{{timestampToDate(training.vortraining.zeitpunkt)}}</h4>
+                    <h4>{{timestampToTime(training.vortraining.zeitpunkt)}}</h4>
+                </div>
+                <div *ngIf="training.vortraining.abgeschlossen" class="details">
+                    <span class="assessment-title">Vortraining: {{getPercent(training.vortraining.korrekt,
+                        training.vortraining.inkorrekt)}}%</span>
+                    <span class="assessment-title">Nachtraining: {{getPercent(training.nachtraining.korrekt,
+                        training.nachtraining.inkorrekt)}}%</span>
+                </div>
+                <div *ngIf="!training.vortraining.abgeschlossen" class="details">
+                    <span>Nicht Abgeschlossen</span>
+                </div>
+            </div>
+        </nav>
+
+        <nav *ngIf="!trainingsAnsicht" class="prüfung">
+            <div *ngFor="let pruefung of pruefungsStatistics" class="item"
+                [ngClass]="{'disabled': !pruefung.abgeschlossen, 'active': activePruefung !== undefined && activePruefung.assessmentID === pruefung.assessmentID}"
+                (click)="loadPruefungsResult(pruefung)">
+                <div class="item-title">
+                    <h4>{{timestampToDate(pruefung.zeitpunkt)}}</h4>
+                    <h4>{{timestampToTime(pruefung.zeitpunkt)}}</h4>
+                </div>
+                <div *ngIf="pruefung.abgeschlossen" class="details">
+                    <span>Ergebnis: {{getPercent(pruefung.korrekt, pruefung.inkorrekt)}}%
+                        ({{pruefung.korrekt}}/{{pruefung.korrekt + pruefung.inkorrekt}})</span>
+                </div>
+                <div *ngIf="!pruefung.abgeschlossen" class="details">
+                    <span>Nicht Abgeschlossen</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</div>
+
+<div class="section-lighter">
+    <app-training-result *ngIf="trainingsAnsicht && activeTraining != undefined" [training]="activeTraining">
+    </app-training-result>
+    <app-pruefung-result *ngIf="!trainingsAnsicht && activePruefung != undefined" [pruefung]="activePruefung">
+    </app-pruefung-result>
+</div>

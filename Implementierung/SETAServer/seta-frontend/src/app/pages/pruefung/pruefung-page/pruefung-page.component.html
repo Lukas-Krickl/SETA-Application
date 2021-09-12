@@ -1,0 +1,62 @@
+<div *ngIf="pruefungsController.phase == PruefungsPhase.Beendet" class="section-darker">
+    <h2 class="title">Wie läuft eine Prüfung Ab?</h2>
+    <div class="info">
+        <h3>Modus:</h3>
+        <p>Prüfungen bestehen aus zufälligen Aufgaben aller Kapitel. Dabei werden von jedem Kapitel 8 Aufgaben
+            ausgewählt, die Sie
+            beantworten müssen. Nachdem Sie alle Aufgaben beantwortet haben, werden diese aufgelöst und Sie können sich
+            Ihre und die
+            korrekten Antworten ansehen.
+        </p>
+        <h3>Aufgaben:</h3>
+        <p>
+            Es gibt zwei unterschiedliche Arten von Aufgaben, Multiple Choice Fragen und Zuordnungen:
+            <br><br>
+            In Multiple Choice Aufgaben wird Ihnen eine Frage mit zugehörigen Antworten angezeigt. Sie müssen die
+            korrekten
+            Antworten auswählen, wobei eine, mehrere oder alle Antworten richtig sein können.
+            <br><br>
+            In Zuordnungs-Aufgaben werden Ihnen mehrere Texte angezeigt. Neben jedem Text befindet sich ein Menü, in dem
+            Sie einen
+            Begriff auswählen können. Sie müssen den angezeigten Texten ihre zugehörigen Begriffe zuordnen. Ein Begriff
+            kann auch
+            mehrmals verwendet und daher mehreren Texten zugeordnet werden.
+
+        </p>
+    </div>
+</div>
+<div *ngIf="pruefungsController.phase == PruefungsPhase.Beendet" class="section-lighter">
+    <h2 class="title">Starten Sie eine Prüfung:</h2>
+    <div class="kapitel">
+        <h3>Hinweis:</h3>
+        <p>Prüfungen dauern 40-60 Minuten.<br>
+            Abgebrochene Prüfungen werden nicht gewertet.</p>
+    </div>
+    <button class="secondary-btn" (click)="pruefungsController.startPruefung()">Prüfung Starten</button>
+</div>
+<div *ngIf="pruefungsController.phase != PruefungsPhase.Beendet" 
+    [ngClass]="{'flex-column': pruefungsController.phase == PruefungsPhase.Feedback}"
+    class="full-section-lighter pruefung-box">
+    <app-pruefung-result class="result-screen"
+        *ngIf="pruefungsController.phase == PruefungsPhase.Feedback"
+        [pruefung]="pruefungsController.pruefungsResult"
+        [btnDisabled]="false" 
+        (szenarioNavClicked)=pruefungsController.showSzenarioResultWithId($event)>
+    </app-pruefung-result>
+    <app-assessment  [ngClass]="{'feedback-mode': (pruefungsController.phase == PruefungsPhase.Feedback)}"
+        *ngIf="pruefungsController.phase == PruefungsPhase.Pruefung  || pruefungsController.phase == PruefungsPhase.Feedback"
+        [title]="pruefungsController.phase" 
+        [confirmBtnText]="pruefungsController.confirmBtnText"
+        [exitBtnText]="pruefungsController.exitBtnText" [szenario]="pruefungsController.szenario"
+        [mcAntwortSelected]="pruefungsController.mcAntwortSelected"
+        [zuordnungsAuswahl]="pruefungsController.zuordnungsAuswahl"
+        [currentSzenarioIndex]="pruefungsController.pruefung.aktuellesSzenario"
+        [szenarioFortschritt]="pruefungsController.szenarioFortschritt"
+        [szenarioResults]="pruefungsController.szenarioResults"
+        [feedBackMode]="pruefungsController.phase == PruefungsPhase.Feedback"
+        (confirmBtn)="pruefungsController.confirmBtnClicked($event)"
+        (exitBtn)="pruefungsController.exitBtnClicked($event)"
+        (szenarioNav)="pruefungsController.chooseSzenario($event)">
+    </app-assessment>
+
+</div>

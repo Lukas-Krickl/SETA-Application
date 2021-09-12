@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+    seta_server:
+        build: SETAServer
+        image: seta_server:seta_test
+        container_name: seta_server
+        depends_on:
+            - seta_database
+            - seta_session_store
+        networks:
+            app_net:             
+        ports: 
+            - "443:443"
+
+    seta_database:
+        build: Database
+        image: seta_database:seta_test
+        container_name: seta_database
+        networks:
+            app_net:
+        ports:
+            - "3306"
+    
+    seta_session_store:
+        build: SessionStore
+        image: seta_session_store:seta_test
+        container_name: seta_session_store
+        networks:
+            app_net:
+        ports: 
+            - "6379"
+
+networks:
+    app_net:

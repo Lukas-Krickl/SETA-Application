@@ -1,0 +1,63 @@
+<div class="logo">SETA</div>
+<div class="mobile-nav" (click)="toggleMobileMenu()">{{mobileMenuText}}</div>
+
+<a routerLink="/inhalte" routerLinkActive="active" (click)="toggleMobileMenu()">
+    <div>
+        <img src="../../assets/icons/sidebar/inhalte.svg" alt="">
+        <span>Inhalte</span>
+    </div>
+</a>
+<a routerLink="/training" routerLinkActive="active" [ngClass]="{'disabled': !appDao.user.isLoggedIn()}"
+    (click)="toggleMobileMenu()">
+    <div>
+        <img src="../../assets/icons/sidebar/training.svg" alt="">
+        <span>Training</span>
+    </div>
+</a>
+<a routerLink="/pruefung" routerLinkActive="active" [ngClass]="{'disabled': !appDao.user.isLoggedIn()}"
+    (click)="toggleMobileMenu()">
+    <div>
+        <img src="../../assets/icons/sidebar/prüfung.svg" alt="">
+        <span>Prüfung</span>
+    </div>
+</a>
+<a routerLink="/fortschritt" routerLinkActive="active" [ngClass]="{'disabled': !appDao.user.isLoggedIn()}"
+    (click)="toggleMobileMenu()">
+    <div>
+        <img src="../../assets/icons/sidebar/fortschritt.svg" alt="">
+        <span>Fortschritt</span>
+    </div>
+</a>
+<a *ngIf="appDao.user.isLoggedIn && appDao.user.getRolle() === 'TRAINER'" routerLink="/monitoring"
+    routerLinkActive="active" (click)="toggleMobileMenu()">
+    <div>
+        <img src="../../assets/icons/sidebar/monitoring.svg" alt="">
+        <span>Monitoring</span>
+    </div>
+</a>
+
+
+
+<div *ngIf="!appDao.user.isLoggedIn()" class="login-section">
+    <a class="normal-link" routerLink="/referenzen" (click)="toggleMobileMenu()">
+        Referenzen
+    </a>
+    <div class="title-sm">Login:</div>
+    <div class="form">
+        <input type="text" [(ngModel)]="benutzernameInput" placeholder="Benutzername"
+            [ngClass]="loginFailed == true ? 'error' : ''">
+        <input type="password" [(ngModel)]="passwortInput" placeholder="Passwort"
+            [ngClass]="loginFailed == true ? 'error' : ''">
+
+        <button class="secondary-btn" (click)="login()">Anmelden</button>
+    </div>
+</div>
+
+<div *ngIf="appDao.user.isLoggedIn()" class="login-section">
+    <a class="normal-link" routerLink="/referenzen" (click)="toggleMobileMenu()">
+        Referenzen
+    </a>
+    <div class="title-sm">Willkommen:</div>
+    <div class="name">{{appDao.user.getVorname()}} {{appDao.user.getNachname()}}</div>
+    <button class="red-btn" (click)="logout()">Abmelden</button>
+</div>

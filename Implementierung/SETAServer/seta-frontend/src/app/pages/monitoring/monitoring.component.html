@@ -1,0 +1,44 @@
+<div class="section-darker">
+    <h2 class="title">Personal:</h2>
+    <div class="scroll-container">
+        <nav>
+            <div *ngFor="let user of allUsers" [ngClass]="{'active': activeUser == user.benutzername}"
+                (click)="loadPruefungen(user.benutzername)" class="item active">
+                <div class="item-title">
+                    <h4>{{user.vorname}} {{user.nachname}}</h4>
+                </div>
+                <div class="details">
+                    <span>Letzte Prüfung:</span>
+                    <b>{{user.letztePruefung}}</b>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+</div>
+<div class="section-dark">
+    <h2 class="title">Prüfungen:</h2>
+    <div class="scroll-container">
+        <nav>
+            <div *ngFor="let pruefung of pruefungsStatistics"
+                [ngClass]="{'disabled': !pruefung.abgeschlossen, 'active': activePruefung !== undefined && activePruefung.assessmentID === pruefung.assessmentID}"
+                (click)="loadPruefungsResult(pruefung)" class="item">
+                <div class="item-title">
+                    <h4>{{timestampToDate(pruefung.zeitpunkt)}}</h4>
+                    <h4>{{timestampToTime(pruefung.zeitpunkt)}}</h4>
+                </div>
+                <div class="details">
+                    <span *ngIf="pruefung.abgeschlossen">
+                        Ergebnis: {{getPercent(pruefung.korrekt, pruefung.inkorrekt)}}%
+                        ({{pruefung.korrekt}}/{{pruefung.korrekt + pruefung.inkorrekt}})
+                    </span>
+                    <span *ngIf="!pruefung.abgeschlossen">Nicht Abgeschlossen</span>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="section-lighter">
+    <app-pruefung-result *ngIf="activePruefung !== undefined" [pruefung]="activePruefung">
+    </app-pruefung-result>
+</div>

@@ -1,0 +1,72 @@
+@import ../../../variables
+:host
+    width: 100%
+    height: 100%
+    display: flex
+
+.section-darker
+    background: rgba(255,255,255,.78)
+    width: 25%
+    height: 100%
+    padding: 2rem 0
+
+h2
+    text-align: center
+
+.section-dark, .section-darker
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+.section-dark
+    border-left: 1px solid rgb(200, 200, 200)
+    width: 25%
+    height: 100%
+    background: rgba(255,255,255,.85)
+    padding-top: 2rem
+
+
+.section-lighter
+    width:50%
+    height: 100%
+    padding: 2rem 1rem
+
+.scroll-container
+    overflow-y: auto
+    height: 80%
+
+nav
+    display: flex
+    flex-direction: column
+    justify-content: center
+
+    .item
+        display: flex
+        flex-direction: column
+        padding: 1rem 1vw
+        border-top: 1px solid $grey
+        font-weight: 300
+
+
+    .item:hover
+        background: rgba(255, 255, 255,.6)
+        cursor: pointer
+
+    .item-title
+        display: flex
+        justify-content: space-between
+        flex-wrap: wrap
+
+    .active
+        background: white
+
+    .disabled:hover
+        cursor: default
+        background: none
+
+    .details
+        display: flex
+        justify-content: flex-start
+        
+        span 
+            margin-right: .5rem

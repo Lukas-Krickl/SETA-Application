@@ -1,0 +1,87 @@
+@import ../../../../variables
+:host
+    height: 100%
+    width: 100%
+    display: flex
+    align-items: stretch
+
+h2
+    text-align: center
+    margin:0
+    margin-bottom: 4%
+
+.section-darker
+    width: 50%
+    padding: 2rem 0
+    display: flex
+    flex-direction: column
+    padding-top: 8%
+    padding-bottom: 2%
+
+    h3
+        font-weight: 300
+        font-size: 1.5rem
+        margin: 2rem 0 .2rem 0
+        padding: 0
+
+    p
+        font-weight: 300
+        margin: 0
+
+.info
+    overflow: auto
+    padding-left: 4%
+    padding-right: 4%
+
+.section-lighter
+    width: 50%
+    padding-top: 8%
+    padding-bottom: 10%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    align-items: center
+
+.kapitel
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    text-align: center
+
+.pruefung-box
+    display: flex
+    justify-content: center
+
+.feedback-mode
+    background: white
+    border-radius: 0 16px 18px 0
+    border-left: 1px solid rgb(200, 200, 200)
+
+.result-screen
+    width: 60%
+
+@media only screen and (max-width: 850px)
+    .flex-column
+        flex-direction: column
+
+    .result-screen, .feedback-mode
+        width: 100%
+        height: 50%
+    
+
+
+@media only screen and (max-width: 600px)
+    :host
+        flex-direction: column
+        overflow: auto
+
+    .section-darker, .section-lighter
+        width: 100%
+
+    .section-darker
+        padding: 2rem 1rem
+
+    .info
+        overflow: visible
+
