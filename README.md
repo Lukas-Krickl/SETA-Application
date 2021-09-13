@@ -17,6 +17,7 @@ It can be started and checked out as a demo of the app but for deployment in a r
 2. Call `docker-compose up`
 
 #### Using the demo system
++ open `https://localhost:443` to access the application   
 + use the system as a **regular employee** with:
     + username: `anwender`
     + password: `test`
